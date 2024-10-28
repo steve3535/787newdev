@@ -1,0 +1,82 @@
+the project is to analyze large amount of data of a lottery company.
+lets establish the approach, workflow, design and implementation, very precisely.
+Ultimately the system will be hosted on AWS.
+However, we'll proceed first with all tests and development locally on our machine.
+Let us analyze the draws and the players. 
+the input raw data is a daily csv formatted file.(see sample file dailyraw_sample.csv in your KB).
+Let us build a dynamic analytics dashboard for report visualization that get refreshed daily everytime a new daily file is uploaded to the system,
+and a chat interface where the customer can use NLP to query the data (leveraging AI).
+
+Data Pipeline Structure:
+
+--> Input: Daily CSV files with raw ticket data
+--> Processing Layer: Data transformation & consolidation
+--> Storage: Database with consolidated view
+--> Output: Analytics Dashboard & NLP Query Interface
+
+We've generated some mock data to achieve the consolidated view.
+(One file per day Two draws per day (afternoon and evening))
+the consolidated view is defined as below:
+LAST NAME & OTHER NAMES: These represent the customer's full name. 2. MOBILE: The customer's mobile number. 3. PROMOTIONAL CONSENT: Whether the customer has agreed to receive promotional material (Y for Yes, N for No). 4. CREATED: The date and time the customer was created in the system. 5. E-Score: This represents the total number of tickets bought by the customer. 6. Indicative Segment: ◦ A: Customers made a purchase every draw in the last 4 draw cycles. ◦ B: Customers made a purchase in 3 out of 4 draw cycles. ◦ C: Customers made a purchase in 2 out of 4 draw cycles. ◦ D: Customers made a purchase in 1 out of 4 draw cycles. ◦ E: Customers made no purchases in the last 4 draw cycles. 7. Gear: Indicates how many draws were missed in the last 4 draw cycles: ◦ 0 means no draws were missed. ◦ 1 means 1 draw was missed. ◦ 2 means 2 draws were missed. ◦ 3 means 3 draws were missed. ◦ 4 means all draws were missed. Customer Segmentation Approach: Based on this data, here are some ways you can categorize and analyze your customers: 1. Loyalty Segmentation (Based on "Indicative Segment" & "Gear"): • Highly Loyal Customers: ◦ Segment A (customers who purchase in every draw) with Gear = 0 (they miss no draws). ◦ These customers are highly engaged and loyal, making purchases consistently. Consider rewarding them with exclusive offers or VIP status. • Moderately Loyal Customers: ◦ Segment B (customers who purchase in 3 out of 4 draws) and Gear = 1. ◦ These customers are also frequent buyers but may need encouragement to be more consistent. • Occasional Customers: ◦ Segment C and Segment D (customers who miss 2 or more draws) with Gear = 2 or 3. ◦ They might need some promotional engagement, such as reminders or limited-time offers. • Inactive or Lapsed Customers: ◦ Segment E (customers who made no purchases in the last 4 draws) and Gear = 4. ◦ These customers need re-engagement strategies, such as "Win Back" campaigns or special promotions to encourage them to return. 2. Marketing Targeting (Based on "PROMOTIONAL CONSENT"): • Yes (Y): Customers who have agreed to receive marketing messages. These customers are open to promotional engagement, and you can send them offers, reminders, and newsletters. • No (N): Customers who have opted out of receiving marketing materials. These customers cannot be contacted directly for promotional reasons, so indirect strategies may be needed, like loyalty programs or in-app promotions. 3. Customer Engagement Strategy (Based on "E-Score" & "Gear"): • High E-Score: These customers buy many tickets. You can create loyalty programs that reward their high engagement. • Low E-Score: Customers with a low E-Score may need more encouragement to buy tickets, such as entry-level offers or first-time buyer bonuses. • Combine E-Score with the Gear rating to target customers who have high scores but miss certain draws. 
+
+Near real time analysis will be done as we dont have api integration with the website of other channels through which the players intercat, 
+Daily files upload will get ingested and analyzed immediately. the volume is approx. 3K lines of data per day.
+
+This is the digram of our worklow/design:
+
+flowchart TB
+    subgraph Input[Input Layer]
+        A[Daily CSV Files] -->|Upload| B[File Ingestion Service]
+        M[Mock Data Generator] -.->|Development| B
+    end
+
+    subgraph Process[Processing Layer]
+        B -->|Raw Data| C[Data Validator]
+        C -->|Validated Data| D[Data Processor]
+        
+        subgraph Calculations
+            D -->|Per Player| E[E-Score Calculator]
+            D -->|4 Cycles Analysis| F[Segment Calculator]
+            D -->|Missed Draws| G[Gear Calculator]
+        end
+        
+        E & F & G -->|Processed Metrics| H[Data Consolidator]
+    end
+
+    subgraph Storage[Storage Layer]
+        H -->|Daily Batch| I[(Consolidated DB)]
+        I -->|Query| J[DB Views]
+    end
+
+    subgraph Output[Output Layer]
+        J -->|Data Access| K[Analytics Dashboard]
+        J -->|Data Access| L[NLP Query Interface]
+    end
+
+    classDef primary fill:#f9f,stroke:#333,stroke-width:2px
+    classDef secondary fill:#bbf,stroke:#333,stroke-width:2px
+    classDef storage fill:#dfd,stroke:#333,stroke-width:2px
+    
+    class A,M primary
+    class B,C,D,E,F,G,H secondary
+    class I,J storage
+
+And this is the processing flow for the processor layer:
+a. Validation
+   - File format/structure
+   - Data integrity
+   - Check if this day's data already processed
+   - Verify draw times (afternoon/evening)
+
+b. Data Integration
+   - Read existing historical data
+   - Add new data to history
+   - Update draw counters/identifiers
+
+c. Recalculation
+   - E-Score needs updating with new tickets
+   - Segments need recalculation (last 4 cycles = 8 draws)
+   - Gear scores need updating
+   - Draw columns need updating
+
+    

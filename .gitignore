@@ -1,0 +1,6 @@
+env
+*.csv
+*.bak
+keys
+sshconfig
+*/__pycache__
