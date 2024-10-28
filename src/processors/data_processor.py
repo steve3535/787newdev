@@ -114,9 +114,11 @@ class DataProcessor:
     def _calculate_e_score(self, player_mobile: str, daily_data: pd.DataFrame) -> int:
         """Calculate total tickets bought by player."""
         player_history = self.state['player_history'].get(player_mobile, {})
-        current_tickets = len(daily_data[daily_data['PLAYER_MOBILE'] == player_mobile])
-        historical_tickets = sum(int(v) for v in player_history.get('tickets', {}).values())
-        return current_tickets + historical_tickets
+        # Only need to sum tickets from history since they include current tickets
+        # after _update_player_history was called
+        total_tickets = sum(int(v) for v in player_history.get('tickets', {}).values())
+        return total_tickets        
+
 
     def _calculate_segment(self, player_mobile: str) -> str:
         """Calculate player segment (A-E) based on last 4 draw cycles."""

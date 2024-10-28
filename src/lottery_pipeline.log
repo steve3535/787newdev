@@ -1,69 +1,28 @@
-2024-10-28 05:39:50,004 - INFO - File watcher starting up...
-2024-10-28 05:39:50,004 - INFO - Starting file watcher on directory: /home/steve/projects/787winners/mockdatagen/src/input
-2024-10-28 05:39:50,004 - INFO - Watching directory: /home/steve/projects/787winners/mockdatagen/src/input
-2024-10-28 05:42:51,403 - INFO - Stopping file watcher...
-2024-10-28 05:42:51,405 - INFO - Starting file watcher on directory: /home/steve/projects/787winners/mockdatagen/src/input
-2024-10-28 05:42:51,405 - INFO - Watching directory: /home/steve/projects/787winners/mockdatagen/src/input
-2024-10-28 05:42:54,171 - INFO - Stopping file watcher...
-2024-10-28 05:43:19,033 - INFO - File watcher starting up...
-2024-10-28 05:43:19,033 - INFO - Starting file watcher on directory: /home/steve/projects/787winners/mockdatagen/src/input
-2024-10-28 05:43:19,033 - INFO - Watching directory: /home/steve/projects/787winners/mockdatagen/src/input
-2024-10-28 05:43:53,415 - INFO - ============= Starting Process =============
-2024-10-28 05:43:53,416 - INFO - Processing new file: tickets_20240828.csv
-2024-10-28 05:43:53,416 - INFO - Step 1: Starting file validation...
-2024-10-28 05:43:53,429 - INFO - Validation Successful!
-2024-10-28 05:43:53,430 - INFO - Found 246 records in file
-2024-10-28 05:43:53,430 - INFO - Step 2: Starting data processing...
-2024-10-28 05:43:53,530 - INFO - Successfully processed 58 records
-2024-10-28 05:43:53,530 - INFO - Saved consolidated output to /home/steve/projects/787winners/mockdatagen/src/processed/consolidated_tickets_20240828.csv
-2024-10-28 05:43:53,530 - INFO - Moved tickets_20240828.csv to processed/20241028_054353_tickets_20240828.csv
-2024-10-28 05:43:53,530 - INFO - File processing completed successfully
-2024-10-28 05:43:53,530 - INFO - ============= Process Complete =============
+2024-10-28 22:17:13,240 - INFO - File watcher starting up...
+2024-10-28 22:17:13,240 - INFO - Starting file watcher on directory: /home/steve/projects/787winners/787newdev/src/input
+2024-10-28 22:17:13,240 - INFO - Watching directory: /home/steve/projects/787winners/787newdev/src/input
+2024-10-28 22:17:27,171 - INFO - ============= Starting Process =============
+2024-10-28 22:17:27,172 - INFO - Processing new file: tickets_20240831.csv
+2024-10-28 22:17:27,172 - INFO - Step 1: Starting file validation...
+2024-10-28 22:17:27,189 - INFO - Validation Successful!
+2024-10-28 22:17:27,189 - INFO - Found 226 records in file
+2024-10-28 22:17:27,189 - INFO - Step 2: Starting data processing...
+2024-10-28 22:17:27,259 - INFO - Successfully processed 56 records
+2024-10-28 22:17:27,259 - INFO - Saved consolidated output to /home/steve/projects/787winners/787newdev/src/processed/consolidated_tickets_20240831.csv
+2024-10-28 22:17:27,259 - INFO - Moved tickets_20240831.csv to processed/20241028_221727_tickets_20240831.csv
+2024-10-28 22:17:27,260 - INFO - File processing completed successfully
+2024-10-28 22:17:27,260 - INFO - ============= Process Complete =============
 
-2024-10-28 05:45:30,932 - INFO - ============= Starting Process =============
-2024-10-28 05:45:30,932 - INFO - Processing new file: tickets_20240829.csv
-2024-10-28 05:45:30,932 - INFO - Step 1: Starting file validation...
-2024-10-28 05:45:30,966 - INFO - Validation Successful!
-2024-10-28 05:45:30,966 - INFO - Found 217 records in file
-2024-10-28 05:45:30,966 - INFO - Step 2: Starting data processing...
-2024-10-28 05:45:31,047 - INFO - Successfully processed 57 records
-2024-10-28 05:45:31,047 - INFO - Saved consolidated output to /home/steve/projects/787winners/mockdatagen/src/processed/consolidated_tickets_20240829.csv
-2024-10-28 05:45:31,047 - INFO - Moved tickets_20240829.csv to processed/20241028_054531_tickets_20240829.csv
-2024-10-28 05:45:31,047 - INFO - File processing completed successfully
-2024-10-28 05:45:31,047 - INFO - ============= Process Complete =============
+2024-10-28 22:19:25,894 - INFO - ============= Starting Process =============
+2024-10-28 22:19:25,894 - INFO - Processing new file: tickets_20240901.csv
+2024-10-28 22:19:25,894 - INFO - Step 1: Starting file validation...
+2024-10-28 22:19:25,921 - INFO - Validation Successful!
+2024-10-28 22:19:25,922 - INFO - Found 199 records in file
+2024-10-28 22:19:25,922 - INFO - Step 2: Starting data processing...
+2024-10-28 22:19:26,008 - INFO - Successfully processed 55 records
+2024-10-28 22:19:26,008 - INFO - Saved consolidated output to /home/steve/projects/787winners/787newdev/src/processed/consolidated_tickets_20240901.csv
+2024-10-28 22:19:26,008 - INFO - Moved tickets_20240901.csv to processed/20241028_221926_tickets_20240901.csv
+2024-10-28 22:19:26,009 - INFO - File processing completed successfully
+2024-10-28 22:19:26,009 - INFO - ============= Process Complete =============
 
-2024-10-28 05:47:20,699 - INFO - ============= Starting Process =============
-2024-10-28 05:47:20,700 - INFO - Processing new file: tickets_20240829.csv
-2024-10-28 05:47:20,701 - INFO - Step 1: Starting file validation...
-2024-10-28 05:47:20,718 - INFO - Validation Successful!
-2024-10-28 05:47:20,718 - INFO - Found 217 records in file
-2024-10-28 05:47:20,718 - INFO - Step 2: Starting data processing...
-2024-10-28 05:47:20,721 - WARNING - File already processed: tickets_20240829.csv
-2024-10-28 05:47:20,721 - INFO - Moved tickets_20240829.csv to failed/20241028_054720_tickets_20240829.csv
-2024-10-28 05:47:20,721 - INFO - ============= Process Complete =============
-
-2024-10-28 05:48:11,105 - INFO - ============= Starting Process =============
-2024-10-28 05:48:11,106 - INFO - Processing new file: tickets_20240830.csv
-2024-10-28 05:48:11,107 - INFO - Step 1: Starting file validation...
-2024-10-28 05:48:11,151 - INFO - Validation Successful!
-2024-10-28 05:48:11,151 - INFO - Found 215 records in file
-2024-10-28 05:48:11,151 - INFO - Step 2: Starting data processing...
-2024-10-28 05:48:11,272 - INFO - Successfully processed 58 records
-2024-10-28 05:48:11,272 - INFO - Saved consolidated output to /home/steve/projects/787winners/mockdatagen/src/processed/consolidated_tickets_20240830.csv
-2024-10-28 05:48:11,273 - INFO - Moved tickets_20240830.csv to processed/20241028_054811_tickets_20240830.csv
-2024-10-28 05:48:11,273 - INFO - File processing completed successfully
-2024-10-28 05:48:11,273 - INFO - ============= Process Complete =============
-
-2024-10-28 05:48:11,273 - INFO - ============= Starting Process =============
-2024-10-28 05:48:11,273 - INFO - Processing new file: tickets_20240831.csv
-2024-10-28 05:48:11,273 - INFO - Step 1: Starting file validation...
-2024-10-28 05:48:11,296 - INFO - Validation Successful!
-2024-10-28 05:48:11,296 - INFO - Found 226 records in file
-2024-10-28 05:48:11,296 - INFO - Step 2: Starting data processing...
-2024-10-28 05:48:11,406 - INFO - Successfully processed 56 records
-2024-10-28 05:48:11,406 - INFO - Saved consolidated output to /home/steve/projects/787winners/mockdatagen/src/processed/consolidated_tickets_20240831.csv
-2024-10-28 05:48:11,407 - INFO - Moved tickets_20240831.csv to processed/20241028_054811_tickets_20240831.csv
-2024-10-28 05:48:11,407 - INFO - File processing completed successfully
-2024-10-28 05:48:11,407 - INFO - ============= Process Complete =============
-
-2024-10-28 05:51:05,823 - INFO - Stopping file watcher...
+2024-10-28 22:37:03,522 - INFO - Stopping file watcher...

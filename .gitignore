@@ -4,3 +4,4 @@ env
 keys
 sshconfig
 */__pycache__
+dev
