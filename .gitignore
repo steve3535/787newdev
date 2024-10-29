@@ -3,5 +3,9 @@ env
 *.bak
 keys
 sshconfig
-*/__pycache__
+__pycache__/
+**/__pycache__/
+*.py[cod]
 dev
+mock_data
+*.db
