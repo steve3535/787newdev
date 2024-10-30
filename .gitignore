@@ -6,3 +6,4 @@ sshconfig
 */__pycache__
 dev
 aws
+processor_state*
