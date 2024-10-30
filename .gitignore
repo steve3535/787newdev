@@ -10,3 +10,4 @@ dev
 mock_data
 *.db
 aws
+processor_state*
