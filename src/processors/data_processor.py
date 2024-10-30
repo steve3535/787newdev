@@ -3,7 +3,11 @@ from typing import Dict, List, Optional
 import pandas as pd
 import json
 import os
+import logging
 from pathlib import Path
+from ..models.db_models import Player, PlayerMetrics
+from ..utils.db_manager import DatabaseManager
+
 
 class DataProcessor:
     def __init__(self, state_file: str = "processor_state.json"):
@@ -15,6 +19,9 @@ class DataProcessor:
         """
         self.state_file = state_file
         self.state = self._load_state()
+        # Add database initialization
+        self.db = DatabaseManager()
+        self.db.init_db()
         
     def _load_state(self) -> Dict:
         """Load or initialize processor state."""
@@ -190,7 +197,44 @@ class DataProcessor:
                 player_history['participation'][draw_number] = True
                 player_history['tickets'][draw_number] = tickets_in_draw
 
-
+    def _update_database(self, consolidated_df: pd.DataFrame, session):
+        """Update database with consolidated data."""
+        try:
+            for _, row in consolidated_df.iterrows():
+                # Update or create player record
+                player = session.query(Player).get(row['MOBILE'])
+                if not player:
+                    player = Player(
+                        mobile=row['MOBILE'],
+                        last_name=row['LAST_NAME'],
+                        other_names=row['OTHER_NAMES'],
+                        promotional_consent=row['PROMOTIONAL_CONSENT'],
+                        created_at=datetime.strptime(row['CREATED'], 
+                                               '%d/%m/%Y %H:%M')
+                    )
+                    session.add(player)
+                    session.flush()  # Ensure player is created before metrics
+            
+                # Only add draw-specific metrics
+                draw_columns = [col for col in row.index if col.startswith('D')]
+                for col in draw_columns:
+                    draw_number = int(col[1:])  # Extract number from 'D301' etc
+                    tickets_count = row[col]
+                    if tickets_count > 0:  # Only add non-zero ticket counts
+                        metrics = PlayerMetrics(
+                            mobile=row['MOBILE'],
+                            draw_number=draw_number,
+                            tickets_count=tickets_count,
+                            e_score=row['E-Score'],
+                            segment=row['Indicative Segment'],
+                            gear=row['Gear'],
+                            updated_at=datetime.utcnow()
+                        )
+                        session.add(metrics)
+            
+        except Exception as e:
+           logging.error(f"Database update failed: {str(e)}")
+           raise        
 
     def process_daily_file(self, file_path: str) -> pd.DataFrame:
         """
@@ -260,10 +304,24 @@ class DataProcessor:
         # Create consolidated DataFrame
         consolidated_df = pd.DataFrame(consolidated_records)
         
+        # Add database update
+        session = self.db.get_session()
+        try:
+            self._update_database(consolidated_df, session)
+            session.commit()
+            logging.info("Database successfully updated")
+        except Exception as e:
+            session.rollback()
+            logging.error(f"Error updating database: {str(e)}")
+            raise
+        finally:
+            session.close()
+
         # Update state
         self.state['processed_files'].append(str(file_date))
         self._save_state()
-        
+
+  
         return consolidated_df
 
 # Usage Example:

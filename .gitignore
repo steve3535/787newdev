@@ -3,7 +3,13 @@ env
 *.bak
 keys
 sshconfig
-*/__pycache__
+__pycache__/
+**/__pycache__/
+*.py[cod]
 dev
+aws
+processor_state*
+mock_data
+*.db
 aws
 processor_state*
