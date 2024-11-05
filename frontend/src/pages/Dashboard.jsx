@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Upload } from 'lucide-react';
 import { uploadFile } from '../services/s3Service';
 import { getPlayers } from '../services/apiService';
+import ChatInterface from '../components/chat/ChatInterface';  // Add this line
 
 const Dashboard = () => {
   const [players, setPlayers] = useState([]);
@@ -73,9 +74,9 @@ const Dashboard = () => {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Left Panel - Upload */}
-      <div className="w-1/4 p-4 bg-white shadow-md">
+      <div className="w-1/4 p-4 bg-white shadow-md overflow-auto">
         <h2 className="text-xl font-semibold mb-4">File Upload</h2>
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+        <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-4">
           <input
             type="file"
             accept=".csv"
@@ -96,8 +97,13 @@ const Dashboard = () => {
             </span>
           </label>
         </div>
+        
+        {/* Chat Interface */}
+        <div className="mt-4">
+          <ChatInterface />
+        </div>
       </div>
-
+      
       {/* Right Panel - Player Data */}
       <div className="flex-1 p-4 overflow-auto">
         <h2 className="text-xl font-semibold mb-4">Player Analytics</h2>
