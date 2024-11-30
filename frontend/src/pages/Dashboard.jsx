@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Upload } from 'lucide-react';
 import { uploadFile } from '../services/s3Service';
 import { getPlayers } from '../services/apiService';
-import ChatInterface from '../components/chat/ChatInterface';  // Add this line
+import ChatInterface from '../components/chat/ChatInterface';
+import ResetButton from '../components/ResetButton';
 
 const Dashboard = () => {
   const [players, setPlayers] = useState([]);
@@ -31,7 +32,7 @@ const Dashboard = () => {
     const file = event.target.files[0];
     if (!file) return;
 
-    console.log('*** Dashboard: File selected:', file); // Add this
+    console.log('*** Dashboard: File selected:', file);
     
     console.log('File selected:', {
       name: file.name,
@@ -53,7 +54,18 @@ const Dashboard = () => {
     }
   };
 
-
+  // Add this handler for the reset button
+  const handleResetComplete = async () => {
+    try {
+      setIsLoading(true);
+      await fetchPlayers(); // Refresh the player data after reset
+    } catch (error) {
+      console.error('Error refreshing data after reset:', error);
+      setError('Failed to refresh data after reset');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   if (error) {
     return (
@@ -96,6 +108,10 @@ const Dashboard = () => {
               {isUploading ? 'Uploading...' : 'Drop CSV file here or click to upload'}
             </span>
           </label>
+        </div>
+
+        <div className="mb-4 text-center">
+          <ResetButton onResetComplete={handleResetComplete} />
         </div>
         
         {/* Chat Interface */}

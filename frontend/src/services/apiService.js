@@ -11,3 +11,24 @@ export const getPlayers = async () => {
     throw error;
   }
 };
+
+export const resetAllData = async () => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/reset-data`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Reset failed');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Reset error:', error);
+    throw error;
+  }
+};
