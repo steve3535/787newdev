@@ -1,24 +1,15 @@
 // src/services/chatService.js
 
-const OLLAMA_ENDPOINT = 'http://172.31.40.51:11434';
+const API_ENDPOINT = 'https://7t51dho1ba.execute-api.eu-central-1.amazonaws.com/DEV';
 
 export const sendChatMessage = async (query) => {
     try {
-        const response = await fetch(`${OLLAMA_ENDPOINT}/api/generate`, {
+        const response = await fetch(`${API_ENDPOINT}/chat`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                model: "llama3.1",
-                prompt: query,
-                stream: false,
-                options: {
-                    temperature: 0.7,
-                    top_k: 40,
-                    top_p: 0.9,
-                }
-            }),
+            body: JSON.stringify({ query }),
         });
 
         if (!response.ok) {
@@ -28,21 +19,7 @@ export const sendChatMessage = async (query) => {
         const data = await response.json();
         return data.response;
     } catch (error) {
-        console.error('Ollama API Error:', error);
-        throw error;
-    }
-};
-
-// Optional: Add a function to check model availability
-export const checkModelAvailability = async () => {
-    try {
-        const response = await fetch(`${OLLAMA_ENDPOINT}/api/tags`);
-        if (!response.ok) {
-            throw new Error('Failed to fetch models');
-        }
-        return await response.json();
-    } catch (error) {
-        console.error('Error checking model availability:', error);
+        console.error('Chat API Error:', error);
         throw error;
     }
 };
